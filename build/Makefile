@@ -372,9 +372,6 @@ ifeq ($(GPL_BUILD), y)
 	#if test -d $(GPL_INSTALL_ROOT)/sbin; then echo $(GPL_INSTALL_ROOT)/sbin exists; else mkdir $(GPL_INSTALL_ROOT)/sbin; fi;
 	if test -d $(GPL_TMP_INSTALL_ROOT)/sbin; then echo $(GPL_TMP_INSTALL_ROOT)/sbin exists; else mkdir -p $(GPL_TMP_INSTALL_ROOT)/sbin; fi;
 endif
-ifeq ($(OPENSOURCE_BUILD), y)
-	cp $(TMP_INSTALL_ROOT)/sbin/* $(INSTALL_ROOT)/sbin
-endif
 	
 CLEANDIR=ap121 ap123 ap123-dsa ap124 ap143 db12x ap143-2.0 pb92 ap151 ap135_hnat apps kernel_modules debug_tools 
 
@@ -2041,7 +2038,7 @@ mk_squashfs_build:
 # Here, remove the nonsense static archive libs
 	@find $(INSTALL_ROOT_FOR_BOARD)/lib/ -name "*.a" | xargs rm -rf
 	@find $(INSTALL_ROOT_FOR_BOARD)/lib/ -name "*.la" | xargs rm -rf
-	@$(TOPDIR)/util/fakeroot/install/bin/fakeroot $(TOPDIR)/util/buildFS_LZ
+	@fakeroot $(TOPDIR)/util/buildFS_LZ
 	@ls -l $(IMAGEPATH)/$(FS_NAME)
 	@cp $(IMAGEPATH)/$(FS_NAME) $(TFTPPATH)
 
@@ -2069,7 +2066,7 @@ mk_squashfs_build:
 # Here, remove the nonsense static archive libs
 	@find $(INSTALL_ROOT_FOR_BOARD)/lib/ -name "*.a" | xargs rm -rf
 	@find $(INSTALL_ROOT_FOR_BOARD)/lib/ -name "*.la" | xargs rm -rf
-	@$(TOPDIR)/util/fakeroot/install/bin/fakeroot $(TOPDIR)/util/buildFS_LZ
+	@fakeroot $(TOPDIR)/util/buildFS_LZ
 	@ls -l $(IMAGEPATH)/$(FS_NAME)
 	@$(TOPDIR)/util/pad -i $(IMAGEPATH)/$(FS_NAME) -p $(fs_size)
 	@cp $(IMAGEPATH)/$(FS_NAME) $(TFTPPATH)
