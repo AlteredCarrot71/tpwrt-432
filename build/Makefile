@@ -1343,6 +1343,7 @@ ifneq ($(FEATURE_PPPOEV6_SETMSS),y)
 else
 	cd $(TOPDIR)/apps/iptables-1.4.5 && \
 	if test -e Makefile ; then make distclean ; fi && \
+	autoreconf -fi && \
 	./configure --prefix=$(INSTALL_ROOT) \
 	--build=i386 --host=mips-linux  \
 	--with-ksource=$(KERNELPATH) \
@@ -1362,7 +1363,7 @@ ifeq ($(GPL_BUILD), y)
 	cd $(TOPDIR)/apps/iproute2-$(KERNELVER) && make clean
 	cp -fr $(TOPDIR)/apps/iproute2-$(KERNELVER) $(GPL_DIR)/apps/
 endif
-	cd $(TOPDIR)/apps/iproute2-$(KERNELVER) && make CC=$(TOOLPREFIX)gcc && \
+	cd $(TOPDIR)/apps/iproute2-$(KERNELVER) && $(MAKE) CC=$(TOOLPREFIX)gcc && \
 	cp $(TOPDIR)/apps/iproute2-$(KERNELVER)/tc/tc $(INSTALL_ROOT)/sbin
 	
 lltd:
